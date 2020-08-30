@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#game-screen{
+    margin: 20px;
+    border: 3px solid black;
+
+}
+body{
+    background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.cnet.com%2Fhow-to%2F8-android-iphone-best-photo-editing-apps-you-need-to-download-asap%2F&psig=AOvVaw3uFm0wAegF0CPUBbM7CXtp&ust=1598851041199000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjzsb2WwusCFQAAAAAdAAAAABAD");
+}
