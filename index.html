@@ -7,9 +7,27 @@
     <title>Breakout Game</title>
 </head>
 <body>
-    <canvas id="game-screen" width="1000" height="650">
-        <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.cnet.com%2Fhow-to%2F8-android-iphone-best-photo-editing-apps-you-need-to-download-asap%2F&psig=AOvVaw3uFm0wAegF0CPUBbM7CXtp&ust=1598851041199000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjzsb2WwusCFQAAAAAdAAAAABAD">
-    </canvas>
+<section id="intro">
+<h1>Breakout Game</h1>
+<p id="intro-text">Have Fun And Play With Us.</p>
+<progress id="progress-bar" max="100" value="0"></progress>
+<button onclick="pointer()">Start Game</button>
+</section>
+
+ <!-- audio and intro new game screen -->
+ <audio id="intro-sound" loop autoplay>
+    <source src="/bensound-dreams.mp3">
+</audio>
+<section id="first-screen">
+    <img id="play" src="images/play.png" onclick="play()">
+<img id="pause" src="images/pause.png" onclick="pause()">
+<button id="new-game">New Game</button>
+<button id="high-score">High Score</button>
+<button id="how2play">How To Play?</button>
+
+</section>
+<!-- ends here -->
+    <canvas id="game-screen" width="1000" height="650"></canvas>
 
     <script src="script.js"></script>
 </body>
