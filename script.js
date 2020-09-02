@@ -12,6 +12,23 @@ ctx.lineWidth = 3;
 const bg= new Image();
 bg.src= "bgsi.png";
 
+//game stats
+function stats(){
+    ctx.fillStyle="black";
+    ctx.font= "30px Georgia";
+    ctx.fillText("Score", 30,40);
+
+    
+    ctx.fillStyle="black";
+    ctx.font= "30px Georgia";
+    ctx.fillText("Level", 420,40);
+
+    ctx.fillStyle="black";
+    ctx.font= "30px Georgia";
+    ctx.fillText("Life", 830,40);
+}
+
+
 // CREATE THE PADDLE
 var paddle = {
 
@@ -88,7 +105,7 @@ function edges(){
     if(ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0){
         ball.dx = 0-ball.dx;
     }
-    if(ball.y - ball.radius < 0){
+    if(ball.y - ball.radius < 60){
         ball.dy = 0-ball.dy;
     }
     if(ball.y + ball.radius> canvas.height)
@@ -100,6 +117,13 @@ function edges(){
     }
 }
 
+function reset()
+{
+    ball.x = canvas.width/2;
+         ball.y= paddle.y-rad;
+         ball.dx= 5*(Math.random()*2 -1);
+         ball.dy= -5;
+}
 //collision of ball and paddle
 function paddlecollision(){
     if(ball.x < paddle.x +paddle.width && ball.x >paddle.x && ball.y+ball.radius >paddle.y )
@@ -210,9 +234,36 @@ function loop() {
 paddlecollision();
   drawbricks();
 ballBrickCollision();
-  requestAnimationFrame(loop); //To request a new animation frame on every function call
+stats();
+levelUp();
+requestAnimationFrame(loop); //To request a new animation frame on every function call
  
 }
 loop();
 
 
+var LEVEL=1;
+var MAX_LEVEL=3;
+function levelUp(){
+    let isLevelDone = true;
+    
+    // check if all the bricks are broken
+    for(var r = 0; r < brick.row; r++){
+        for(var c = 0; c < brick.col; c++){
+            isLevelDone = isLevelDone &&  bricks[r][c].broken;
+        }
+    }
+    
+    if(isLevelDone){
+        
+        if(LEVEL >= MAX_LEVEL){
+            GAME_OVER = true;
+            return;
+        }
+        brick.row++;
+        configbricks();
+        ball.vel += 0.5;
+        reset();
+        LEVEL++;
+    }
+}
