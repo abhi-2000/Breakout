@@ -19,7 +19,7 @@ var paddle = {
     y : canvas.height - PADDLE_MARGIN_BOTTOM - paddle_height,
     width : paddle_width,
     height : paddle_height,
-    dx :5
+    dx :8
 }
 
 //To draw paddle
@@ -181,6 +181,25 @@ function drawbricks()
     }
 }
 
+
+// ball brick collision
+function ballBrickCollision(){
+    for(let r = 0; r < brick.row; r++){
+        for(let c = 0; c < brick.col; c++){
+            let b = bricks[r][c];
+            // if the brick isn't broken
+            if(!(b.broken)){
+                if(ball.x + ball.radius > b.x && ball.x - ball.radius < b.x + brick.width && ball.y + ball.radius > b.y && ball.y - ball.radius < b.y + brick.height){
+                    ball.dy = - ball.dy;
+                    b.broken = true; // the brick is broken
+                }
+            }
+        }
+    }
+}
+
+
+
 function loop() {
     ctx.drawImage(bg, 0, 0);//To clear screen and draw the bg image
   drawPaddle();
@@ -190,6 +209,7 @@ function loop() {
   edges();
 paddlecollision();
   drawbricks();
+ballBrickCollision();
   requestAnimationFrame(loop); //To request a new animation frame on every function call
  
 }
