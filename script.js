@@ -1,6 +1,6 @@
 var canvas = document.getElementById("game-screen");
 var ctx = canvas.getContext("2d");
-
+var GAME_OVER=false;
 const rad=22;
 var paddle_width= 190;
 var PADDLE_MARGIN_BOTTOM = 20;
@@ -16,16 +16,16 @@ bg.src= "bgsi.png";
 function stats(){
     ctx.fillStyle="black";
     ctx.font= "30px Georgia";
-    ctx.fillText("Score", 30,40);
+    ctx.fillText("Score: "+SCORE, 30,40);
 
     
     ctx.fillStyle="black";
     ctx.font= "30px Georgia";
-    ctx.fillText("Level", 420,40);
+    ctx.fillText("Level: "+LEVEL, 420,40);
 
     ctx.fillStyle="black";
     ctx.font= "30px Georgia";
-    ctx.fillText("Life", 830,40);
+    ctx.fillText("Life: "+LIFE, 830,40);
 }
 
 
@@ -123,6 +123,7 @@ function reset()
          ball.y= paddle.y-rad;
          ball.dx= 5*(Math.random()*2 -1);
          ball.dy= -5;
+         
 }
 //collision of ball and paddle
 function paddlecollision(){
@@ -205,8 +206,8 @@ function drawbricks()
     }
 }
 
-
 // ball brick collision
+var SCORE=0;
 function ballBrickCollision(){
     for(let r = 0; r < brick.row; r++){
         for(let c = 0; c < brick.col; c++){
@@ -215,6 +216,7 @@ function ballBrickCollision(){
             if(!(b.broken)){
                 if(ball.x + ball.radius > b.x && ball.x - ball.radius < b.x + brick.width && ball.y + ball.radius > b.y && ball.y - ball.radius < b.y + brick.height){
                     ball.dy = - ball.dy;
+                    SCORE+=10;
                     b.broken = true; // the brick is broken
                 }
             }
@@ -236,12 +238,31 @@ paddlecollision();
 ballBrickCollision();
 stats();
 levelUp();
+life_loss();
+if(! GAME_OVER)
 requestAnimationFrame(loop); //To request a new animation frame on every function call
  
 }
 loop();
 
+var LIFE=3;
+function life_loss()
+{
+    if(LIFE>=0)
+    {
+    if(ball.y + ball.radius == canvas.height){
+        LIFE--; // LOSE LIFE
+    }
+}
+if(LIFE<0){
+    GAME_OVER=true;
+}
 
+
+}
+
+
+//level up function
 var LEVEL=1;
 var MAX_LEVEL=3;
 function levelUp(){
@@ -260,10 +281,11 @@ function levelUp(){
             GAME_OVER = true;
             return;
         }
+        alert("starting next level");
         brick.row++;
         configbricks();
-        ball.vel += 0.5;
-        reset();
+        ball.vel += 1;
+        // reset();
         LEVEL++;
     }
 }
