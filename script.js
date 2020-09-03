@@ -1,7 +1,7 @@
 var canvas = document.getElementById("game-screen");
 var ctx = canvas.getContext("2d");
 var GAME_OVER=false;
-const rad=22;
+var rad=22;
 var end=document.getElementById("gameover");
 var paddle_width= 190;
 var PADDLE_MARGIN_BOTTOM = 20;
@@ -9,9 +9,20 @@ var paddle_height = 25;
 var leftArrow = false;
 var rightArrow = false;
 ctx.lineWidth = 3;
+var y=30,x=90,x1=200,y1=30,x2=250, y2=30;
 
-const bg= new Image();
+var bg= new Image();
 bg.src= "bgsi.png";
+
+var size= new Image();
+size.src= "bomb.png";
+
+var life= new Image();
+life.src= "life.png";
+
+var speed = new Image();
+speed.src = "speed.png";
+
 
 //game stats
 function stats(){
@@ -224,18 +235,49 @@ function ballBrickCollision(){
         }
     }
 }
+//To add boosters
+function boosters(){
+    if(SCORE>200){
+    ctx.drawImage(size,x, y, width= 70, height= 60);
+    y+=2;
+    if(y+55==paddle.y&& x+60>=paddle.x && x<=paddle.x+paddle.width){
+        ctx.drawImage(size,x, canvas.height, width= 60, height= 55);
+        ball.radius=30;
+    }      
+    }
+    if(SCORE>500){
+        ctx.drawImage(life,x1, y1, width= 70, height= 60);
+        y1+=2;
+        if(y1+55==paddle.y&& x1+60>=paddle.x && x1<=paddle.x+paddle.width){
+            ctx.drawImage(size,x1, canvas.height, width= 70, height= 60);
+            LIFE++;
+        }      
+        }
+        if(SCORE>350){
+            ctx.drawImage(speed,x2, y2, width= 80, height= 80);
+            y2+=2;
+            if(y2+60==paddle.y&& x2+70>=paddle.x && x2<=paddle.x+paddle.width){
+                ctx.drawImage(size,x2, canvas.height, width= 70, height= 60);
+                ball.x =  ball.x+ball.dx+100;
+                ball.y =  ball.y+ball.dy+100;
+            }      
+            }
+}
+
 
 
 function loop() {
-    ctx.drawImage(bg, 0, 0);//To clear screen and draw the bg image
+
+ ctx.drawImage(bg, 0, 0);//To clear screen and draw the bg image
   drawPaddle();
   drawball();
   movePaddle();
    moveball();
   edges();
-paddlecollision();
+ paddlecollision();
   drawbricks();
 ballBrickCollision();
+boosters();
 stats();
 levelUp();
 life_loss();
@@ -251,11 +293,12 @@ function life_loss()
 {
     if(LIFE>=0)
     {
-    if(ball.y + ball.radius == canvas.height){
+      if(ball.y + ball.radius == canvas.height)
+      {
         LIFE--; // LOSE LIFE
+       }
     }
-}
-if(LIFE<0){
+   if(LIFE<0){
     GAME_OVER=true;
     end.style.display="block";
 }
