@@ -17,12 +17,12 @@ body{
 #youlose{
     position: absolute;
     left: 20%;
-    top:5%;
+    top:15%;
 }
 
 #restart{
     position: absolute;
-    top: 50%;
+    top: 65%;
     left : 40%;
     cursor: pointer;
     font-size: 40px;
@@ -38,3 +38,11 @@ body{
     background: rgba(0,0,0,0.5);
     display: none;
 }
+
+
+
+#won-img{
+    position: absolute;
+    left: 10%;
+    bottom: 10%;
+}   

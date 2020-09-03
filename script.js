@@ -3,6 +3,9 @@ var ctx = canvas.getContext("2d");
 var GAME_OVER=false;
 const rad=22;
 var end=document.getElementById("gameover");
+var lose=document.getElementById("youlose");
+var won=document.getElementById("won-img");
+
 var paddle_width= 190;
 var PADDLE_MARGIN_BOTTOM = 20;
 var paddle_height = 25;
@@ -118,14 +121,14 @@ function edges(){
     }
 }
 
-// function reset()
-// {
-//     ball.x = canvas.width/2;
-//          ball.y= paddle.y-rad;
-//          ball.dx= 5*(Math.random()*2 -1);
-//          ball.dy= -5;
+function reset()
+{
+    ball.x = canvas.width/2;
+         ball.y= paddle.y-rad;
+         ball.dx= 5*(Math.random()*2 -1);
+         ball.dy= -5;
          
-// }
+}
 //collision of ball and paddle
 function paddlecollision(){
     if(ball.x < paddle.x +paddle.width && ball.x >paddle.x && ball.y+ball.radius >paddle.y )
@@ -142,8 +145,6 @@ function paddlecollision(){
        //Defining speed after collision
        ball.dx= ball.vel * Math.sin(angle);
       ball.dy= -ball.vel *Math.cos(angle);
-    //   ball.dx=0-ball.dx;
-    //   ball.dy=0-ball.dy;
     }
 }
 //BRICK DIMENSIONS 
@@ -251,13 +252,14 @@ function life_loss()
 {
     if(LIFE>=0)
     {
-    if(ball.y + ball.radius == canvas.height){
+    if (ball.y + ball.radius == canvas.height){
         LIFE--; // LOSE LIFE
     }
 }
 if(LIFE<0){
     GAME_OVER=true;
     end.style.display="block";
+    won.style.display="none";
 }
 }
 
@@ -279,12 +281,14 @@ function levelUp(){
         
         if(LEVEL >= MAX_LEVEL){
             GAME_OVER = true;
+            lose.style.display="none";
             return;
         }
         alert("starting next level");
         brick.row++;
         configbricks();
         ball.vel += 1;
+       reset();
         LEVEL++;
     }
 }
