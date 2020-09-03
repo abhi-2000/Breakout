@@ -2,6 +2,7 @@ var canvas = document.getElementById("game-screen");
 var ctx = canvas.getContext("2d");
 var GAME_OVER=false;
 const rad=22;
+var end=document.getElementById("gameover");
 var paddle_width= 190;
 var PADDLE_MARGIN_BOTTOM = 20;
 var paddle_height = 25;
@@ -117,14 +118,14 @@ function edges(){
     }
 }
 
-function reset()
-{
-    ball.x = canvas.width/2;
-         ball.y= paddle.y-rad;
-         ball.dx= 5*(Math.random()*2 -1);
-         ball.dy= -5;
+// function reset()
+// {
+//     ball.x = canvas.width/2;
+//          ball.y= paddle.y-rad;
+//          ball.dx= 5*(Math.random()*2 -1);
+//          ball.dy= -5;
          
-}
+// }
 //collision of ball and paddle
 function paddlecollision(){
     if(ball.x < paddle.x +paddle.width && ball.x >paddle.x && ball.y+ball.radius >paddle.y )
@@ -225,7 +226,6 @@ function ballBrickCollision(){
 }
 
 
-
 function loop() {
     ctx.drawImage(bg, 0, 0);//To clear screen and draw the bg image
   drawPaddle();
@@ -245,6 +245,7 @@ requestAnimationFrame(loop); //To request a new animation frame on every functio
 }
 loop();
 
+
 var LIFE=3;
 function life_loss()
 {
@@ -256,9 +257,8 @@ function life_loss()
 }
 if(LIFE<0){
     GAME_OVER=true;
+    end.style.display="block";
 }
-
-
 }
 
 
@@ -285,7 +285,9 @@ function levelUp(){
         brick.row++;
         configbricks();
         ball.vel += 1;
-        // reset();
         LEVEL++;
     }
+}
+function restart(){
+    location.reload();
 }

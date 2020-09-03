@@ -10,6 +10,31 @@
 body{
     background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.cnet.com%2Fhow-to%2F8-android-iphone-best-photo-editing-apps-you-need-to-download-asap%2F&psig=AOvVaw3uFm0wAegF0CPUBbM7CXtp&ust=1598851041199000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjzsb2WwusCFQAAAAAdAAAAABAD");
 }
-canvas{ 
+/* canvas{ 
     transform: translate(20%,5%);
+} */
+
+#youlose{
+    position: absolute;
+    left: 20%;
+    top:5%;
+}
+
+#restart{
+    position: absolute;
+    top: 50%;
+    left : 40%;
+    cursor: pointer;
+    font-size: 40px;
+    color : white;
+}
+
+#gameover{
+    
+    margin: 20px;
+    position: absolute;
+    width : 1000px;
+    height: 650px;
+    background: rgba(0,0,0,0.5);
+    display: none;
 }
