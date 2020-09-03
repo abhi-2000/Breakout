@@ -266,7 +266,7 @@ if(LIFE<0){
 
 //level up function
 var LEVEL=1;
-var MAX_LEVEL=3;
+var MAX_LEVEL=4;
 function levelUp(){
     let isLevelDone = true;
     
@@ -281,6 +281,7 @@ function levelUp(){
         
         if(LEVEL >= MAX_LEVEL){
             GAME_OVER = true;
+            end.style.display="block";
             lose.style.display="none";
             return;
         }
