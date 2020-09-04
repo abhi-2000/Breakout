@@ -16,8 +16,12 @@
     width: 1000px;
     font-family: cursive;
     color: white;
-    background-color:red;
+    background-color:rgb(211, 144, 144);
+}
+#intro-text{
 
+    font-family: 'Lucida Sans';
+    font-size:40px; 
 }
 
 h1{
@@ -54,10 +58,15 @@ button{
     left: 20%;
     padding: 25px 100px;
     bottom: 15%;
-    font-size: x-large;
+    font-size: 30px;
     font-family: cursive;
+    border-radius: 60px;
    cursor: pointer;
 }
+button:hover{
+    background-color: rgb(154, 161, 161);
+}
+
 
 /* first screen */
 #first-screen{

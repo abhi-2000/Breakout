@@ -14,6 +14,7 @@ var paddle_height = 25;
 var leftArrow = false;
 var rightArrow = false;
 ctx.lineWidth = 3;
+var booster=false,booster1=false,booster2=false;
 var y=30,x=90,x1=200,y1=30,x2=250, y2=30;
 
 var bg= new Image();
@@ -181,19 +182,17 @@ function edges(){
     }
     if(ball.y + ball.radius> canvas.height)
     {
-         ball.x = canvas.width/2,
-         ball.y= paddle.y-rad,
-         ball.dx= 5*(Math.random()*2 -1),
-         ball.dy= -5
+        LIFE--;
+        reset();
     }
 }
 
 function reset()
 {
-    ball.x = canvas.width/2;
+     ball.x = canvas.width/2;
          ball.y= paddle.y-rad;
-         ball.dx= 5*(Math.random()*2 -1);
-         ball.dy= -5;
+      ball.dx= 5*(Math.random()*2 -1);
+          ball.dy= -5;
         
 }
 //collision of ball and paddle
@@ -294,71 +293,71 @@ function ballBrickCollision(){
 }
 //To add boosters
 function boosters(){
-    if(SCORE>200&&SCORE<700){
+    if(SCORE>200&&SCORE<700&&booster==false){
     ctx.drawImage(size,x, y, width= 70, height= 60);
     y+=2;
     if(y+55==paddle.y&& x+60>=paddle.x && x<=paddle.x+paddle.width){
-        ctx.drawImage(size,x, canvas.height, width= 60, height= 55);
-        ball.radius=30;
+        booster= true;
+        ball.radius=32;
     } }  
-    if(SCORE>1000&&SCORE<1540){
+    if(SCORE>1000&&SCORE<1540&&booster==false){
         ctx.drawImage(size,x, y, width= 70, height= 60);
         y+=2;
         if(y+55==paddle.y&& x+60>=paddle.x && x<=paddle.x+paddle.width){
-            ctx.drawImage(size,x, canvas.height, width= 70, height= 60);
-            ball.radius=30;
+        booster= true;
+            ball.radius=32;
         } 
     }
-    if(SCORE>2000){
+    if(SCORE>1800&&booster==false){
         ctx.drawImage(size,x, y, width= 70, height= 60);
         y+=2;
         if(y+55==paddle.y&& x+60>=paddle.x && x<=paddle.x+paddle.width){
-            ctx.drawImage(size,x, canvas.height, width= 70, height= 60);
-            ball.radius=30;
+            booster=true;
+            ball.radius=32;
         } 
     }
-    if(SCORE>500&&SCORE<700){
+    if(SCORE>500&&SCORE<700&&booster1==false){
         ctx.drawImage(life,x1, y1, width= 70, height= 60);
         y1+=2;
         ball.radius=25;
         if(y1+55==paddle.y&& x1+60>=paddle.x && x1<=paddle.x+paddle.width){
-            ctx.drawImage(life,x1, canvas.height, width= 70, height= 60);
+            booster1=true;
             LIFE++;
         }      
         }
-        if(SCORE>1500&&SCORE<1540){
+        if(SCORE>1500 &&SCORE<1540 && booster1==false){
             ctx.drawImage(life,x1, y1, width= 70, height= 60);
             y1+=2;
             ball.radius=25;
-            if(y1+55==paddle.y&& x1+60>=paddle.x && x1<=paddle.x+paddle.width){
-                ctx.drawImage(life,x1, canvas.height, width= 70, height= 60);
+            if(y1+60==paddle.y&& x1+70>=paddle.x && x1<=paddle.x+paddle.width){
+                booster1=true;
                 LIFE++;
             }      
             }
-            if(SCORE>2500){
+            if(SCORE>2000 && booster1==false){
                 ctx.drawImage(life,x1, y1, width= 70, height= 60);
                 y1+=2;
                 ball.radius=25;
                 if(y1+55==paddle.y&& x1+60>=paddle.x && x1<=paddle.x+paddle.width){
-                    ctx.drawImage(life,x1, canvas.height, width= 70, height= 60);
+                    booster1=true;
                     LIFE++;
                 }      
                 }
 
-        if(SCORE>350&&SCORE<700){
+        if(SCORE>350&&SCORE<700 && booster2==false){
             ctx.drawImage(speed,x2, y2, width= 80, height= 80);
             y2+=2;
-            if(y2+60==paddle.y&& x2+70>=paddle.x && x2<=paddle.x+paddle.width){
-                ctx.drawImage(speed,x2, canvas.height, width= 70, height= 60);
+            if(y2+80==paddle.y&& x2+80>=paddle.x && x2<=paddle.x+paddle.width){
+                booster2=true;
                 ball.vel=  ball.vel*2;
                 
             }      
             }
-            if(SCORE>1250&&SCORE<1540){
+            if(SCORE>1250&&SCORE<1540&&booster2==false){
                 ctx.drawImage(speed,x2, y2, width= 80, height= 80);
                 y2+=2;
-                if(y2+60==paddle.y&& x2+70>=paddle.x && x2<=paddle.x+paddle.width){
-                    ctx.drawImage(speed,x2, canvas.height, width= 70, height= 60);
+                if(y2+80==paddle.y&& x2+80>=paddle.x && x2<=paddle.x+paddle.width){
+                    booster2=true;
                     ball.vel=  ball.vel*2;
                     
                 }      
@@ -391,13 +390,6 @@ requestAnimationFrame(loop); //To request a new animation frame on every functio
 var LIFE=3;
 function life_loss()
 {
-    if(LIFE>=0)
-    {
-    if (ball.y + ball.radius == canvas.height){
-        LIFE--; // LOSE LIFE
-       }
-    }
-
 
 if(LIFE<0){
     GAME_OVER=true;
@@ -424,6 +416,7 @@ function levelUp()
     
      if(isLevelDone)
      {
+        booster=false;
         y=30,x=90;
         x1=200,y1=30;
         x2=250, y2=30;
