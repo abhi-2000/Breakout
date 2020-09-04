@@ -405,6 +405,10 @@ if(LIFE<0){
     GAME_OVER=true;
     end.style.display="block";
     won.style.display="none";
+    
+var final_score=SCORE;
+var print_score=document.getElementById("score");
+print_score.innerHTML="Your Score: "+final_score;
 }
 
 }
