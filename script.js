@@ -3,6 +3,9 @@ var ctx = canvas.getContext("2d");
 var GAME_OVER=false;
 var rad=25;
 var end=document.getElementById("gameover");
+var lose=document.getElementById("youlose");
+var won=document.getElementById("won-img");
+
 var paddle_width= 190;
 var PADDLE_MARGIN_BOTTOM = 20;
 var paddle_height = 25;
@@ -34,18 +37,18 @@ function stats(){
     ctx.fillStyle="black";
     ctx.font= "30px Georgia";
     ctx.fillText("Score: "+SCORE, 58,40);
-    ctx.drawImage(score,12, 7, width= 42, height= 45);
+    ctx.drawImage(score,12, 7, width= 42, height= 45); //To display score icon
      
     
     ctx.fillStyle="black";
     ctx.font= "30px Georgia";
     ctx.fillText("Level: "+LEVEL, 420,40);
-    ctx.drawImage(level,360, 2, width= 57, height= 57);
+    ctx.drawImage(level,360, 2, width= 57, height= 57); //To display level icon
 
     ctx.fillStyle="black";
     ctx.font= "30px Georgia";
     ctx.fillText("Life: "+LIFE, 830,40);
-    ctx.drawImage(life,777, 2, width= 50, height= 55);
+    ctx.drawImage(life,777, 2, width= 50, height= 55); //To display life icon
 
 }
 
@@ -138,13 +141,13 @@ function edges(){
     }
 }
 
- function reset()
- {
-     ball.x = canvas.width/2;
-     ball.y= paddle.y-rad;
-     ball.dx= 5*(Math.random()*2 -1);
-     ball.dy= -5;
-         
+function reset()
+{
+    ball.x = canvas.width/2;
+         ball.y= paddle.y-rad;
+         ball.dx= 5*(Math.random()*2 -1);
+         ball.dy= -5;
+        
 }
 //collision of ball and paddle
 function paddlecollision(){
@@ -162,8 +165,6 @@ function paddlecollision(){
        //Defining speed after collision
        ball.dx= ball.vel * Math.sin(angle);
       ball.dy= -ball.vel *Math.cos(angle);
-    //   ball.dx=0-ball.dx;
-    //   ball.dy=0-ball.dy;
     }
 }
 //BRICK DIMENSIONS 
@@ -246,14 +247,14 @@ function ballBrickCollision(){
 }
 //To add boosters
 function boosters(){
-    if(SCORE>200){
+    if(SCORE>200&&SCORE<700){
     ctx.drawImage(size,x, y, width= 70, height= 60);
     y+=2;
     if(y+55==paddle.y&& x+60>=paddle.x && x<=paddle.x+paddle.width){
         ctx.drawImage(size,x, canvas.height, width= 60, height= 55);
         ball.radius=30;
     } }  
-    if(SCORE>1000){
+    if(SCORE>1000&&SCORE<1540){
         ctx.drawImage(size,x, y, width= 70, height= 60);
         y+=2;
         if(y+55==paddle.y&& x+60>=paddle.x && x<=paddle.x+paddle.width){
@@ -269,7 +270,7 @@ function boosters(){
             ball.radius=30;
         } 
     }
-    if(SCORE>500){
+    if(SCORE>500&&SCORE<700){
         ctx.drawImage(life,x1, y1, width= 70, height= 60);
         y1+=2;
         ball.radius=25;
@@ -278,7 +279,7 @@ function boosters(){
             LIFE++;
         }      
         }
-        if(SCORE>1500){
+        if(SCORE>1500&&SCORE<1540){
             ctx.drawImage(life,x1, y1, width= 70, height= 60);
             y1+=2;
             ball.radius=25;
@@ -297,7 +298,7 @@ function boosters(){
                 }      
                 }
 
-        if(SCORE>350){
+        if(SCORE>350&&SCORE<700){
             ctx.drawImage(speed,x2, y2, width= 80, height= 80);
             y2+=2;
             if(y2+60==paddle.y&& x2+70>=paddle.x && x2<=paddle.x+paddle.width){
@@ -306,7 +307,7 @@ function boosters(){
                 
             }      
             }
-            if(SCORE>1250){
+            if(SCORE>1250&&SCORE<1540){
                 ctx.drawImage(speed,x2, y2, width= 80, height= 80);
                 y2+=2;
                 if(y2+60==paddle.y&& x2+70>=paddle.x && x2<=paddle.x+paddle.width){
@@ -316,7 +317,7 @@ function boosters(){
                 }      
                 }
 }
-
+//Booster fn over
 
 
 function loop() {
@@ -346,16 +347,18 @@ function life_loss()
 {
     if(LIFE>=0)
     {
-      if(ball.y + ball.radius == canvas.height)
-      {
+    if (ball.y + ball.radius == canvas.height){
         LIFE--; // LOSE LIFE
        }
     }
-    if(LIFE<0)
-    {
-      GAME_OVER=true;
-      end.style.display="block";
-   }
+
+
+if(LIFE<0){
+    GAME_OVER=true;
+    end.style.display="block";
+    won.style.display="none";
+}
+
 }
 
 
@@ -380,6 +383,8 @@ function levelUp()
         x2=250, y2=30;
         if(LEVEL >= MAX_LEVEL){
             GAME_OVER = true;
+            end.style.display="block";
+            lose.style.display="none";
             return;
         }
         reset();    
@@ -387,6 +392,7 @@ function levelUp()
         brick.row++;
         configbricks();
         ball.vel += 1;
+       reset();
         LEVEL++;
      }
     }
