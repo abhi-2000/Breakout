@@ -1,7 +1,7 @@
 var canvas = document.getElementById("game-screen");
 var ctx = canvas.getContext("2d");
 var GAME_OVER=false;
-var rad=22;
+var rad=25;
 var end=document.getElementById("gameover");
 var paddle_width= 190;
 var PADDLE_MARGIN_BOTTOM = 20;
@@ -34,18 +34,18 @@ function stats(){
     ctx.fillStyle="black";
     ctx.font= "30px Georgia";
     ctx.fillText("Score: "+SCORE, 58,40);
-    ctx.drawImage(score,5, 5, width= 45, height= 48);
+    ctx.drawImage(score,12, 7, width= 42, height= 45);
      
     
     ctx.fillStyle="black";
     ctx.font= "30px Georgia";
     ctx.fillText("Level: "+LEVEL, 420,40);
-    ctx.drawImage(level,360, 2, width= 60, height= 60);
+    ctx.drawImage(level,360, 2, width= 57, height= 57);
 
     ctx.fillStyle="black";
     ctx.font= "30px Georgia";
     ctx.fillText("Life: "+LIFE, 830,40);
-    ctx.drawImage(life,780, 2, width= 50, height= 55);
+    ctx.drawImage(life,777, 2, width= 50, height= 55);
 
 }
 
@@ -126,7 +126,7 @@ function edges(){
     if(ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0){
         ball.dx = 0-ball.dx;
     }
-    if(ball.y - ball.radius < 60){
+    if(ball.y - ball.radius < 70){
         ball.dy = 0-ball.dy;
     }
     if(ball.y + ball.radius> canvas.height)
@@ -168,10 +168,10 @@ function paddlecollision(){
 }
 //BRICK DIMENSIONS 
 var brick={
-    row:6,
+    row:5,
     col: 14,
     width: 65, height:25, left: 6, top:5,
-    margintop: 60,  
+    margintop: 70,  
     boundary: "black"
 }
 let bricks=[];
@@ -252,16 +252,51 @@ function boosters(){
     if(y+55==paddle.y&& x+60>=paddle.x && x<=paddle.x+paddle.width){
         ctx.drawImage(size,x, canvas.height, width= 60, height= 55);
         ball.radius=30;
-    }      
+    } }  
+    if(SCORE>1000){
+        ctx.drawImage(size,x, y, width= 70, height= 60);
+        y+=2;
+        if(y+55==paddle.y&& x+60>=paddle.x && x<=paddle.x+paddle.width){
+            ctx.drawImage(size,x, canvas.height, width= 70, height= 60);
+            ball.radius=30;
+        } 
+    }
+    if(SCORE>2000){
+        ctx.drawImage(size,x, y, width= 70, height= 60);
+        y+=2;
+        if(y+55==paddle.y&& x+60>=paddle.x && x<=paddle.x+paddle.width){
+            ctx.drawImage(size,x, canvas.height, width= 70, height= 60);
+            ball.radius=30;
+        } 
     }
     if(SCORE>500){
         ctx.drawImage(life,x1, y1, width= 70, height= 60);
         y1+=2;
+        ball.radius=25;
         if(y1+55==paddle.y&& x1+60>=paddle.x && x1<=paddle.x+paddle.width){
             ctx.drawImage(life,x1, canvas.height, width= 70, height= 60);
             LIFE++;
         }      
         }
+        if(SCORE>1500){
+            ctx.drawImage(life,x1, y1, width= 70, height= 60);
+            y1+=2;
+            ball.radius=25;
+            if(y1+55==paddle.y&& x1+60>=paddle.x && x1<=paddle.x+paddle.width){
+                ctx.drawImage(life,x1, canvas.height, width= 70, height= 60);
+                LIFE++;
+            }      
+            }
+            if(SCORE>2500){
+                ctx.drawImage(life,x1, y1, width= 70, height= 60);
+                y1+=2;
+                ball.radius=25;
+                if(y1+55==paddle.y&& x1+60>=paddle.x && x1<=paddle.x+paddle.width){
+                    ctx.drawImage(life,x1, canvas.height, width= 70, height= 60);
+                    LIFE++;
+                }      
+                }
+
         if(SCORE>350){
             ctx.drawImage(speed,x2, y2, width= 80, height= 80);
             y2+=2;
@@ -271,6 +306,15 @@ function boosters(){
                 
             }      
             }
+            if(SCORE>1250){
+                ctx.drawImage(speed,x2, y2, width= 80, height= 80);
+                y2+=2;
+                if(y2+60==paddle.y&& x2+70>=paddle.x && x2<=paddle.x+paddle.width){
+                    ctx.drawImage(speed,x2, canvas.height, width= 70, height= 60);
+                    ball.vel=  ball.vel*2;
+                    
+                }      
+                }
 }
 
 
@@ -307,10 +351,11 @@ function life_loss()
         LIFE--; // LOSE LIFE
        }
     }
-   if(LIFE<0){
-    GAME_OVER=true;
-    end.style.display="block";
-}
+    if(LIFE<0)
+    {
+      GAME_OVER=true;
+      end.style.display="block";
+   }
 }
 
 
@@ -330,6 +375,9 @@ function levelUp()
     
      if(isLevelDone)
      {
+        y=30,x=90;
+        x1=200,y1=30;
+        x2=250, y2=30;
         if(LEVEL >= MAX_LEVEL){
             GAME_OVER = true;
             return;
