@@ -425,6 +425,10 @@ function levelUp()
      for(var r = 0; r < brick.row; r++){
         for(var c = 0; c < brick.col; c++){
             isLevelDone = isLevelDone &&  bricks[r][c].broken;
+            var final_score=SCORE;
+            var print_score=document.getElementById("score");
+            print_score.innerHTML="Your Score: "+final_score;
+            
         }
      }
     
