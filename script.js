@@ -1,5 +1,7 @@
 var canvas = document.getElementById("game-screen");
 var ctx = canvas.getContext("2d");
+var first = document.getElementById("first-screen");
+var intro=document.getElementById("intro");
 var GAME_OVER=false;
 var rad=25;
 var end=document.getElementById("gameover");
@@ -32,6 +34,33 @@ life.src= "life.png";
 var speed = new Image();
 speed.src = "speed.png";
 
+
+//animation in progress bar
+function pointer() {
+    var elem = document.getElementById("progress-bar");   
+    var width = 1;
+    var id = setInterval(frame, 50);
+    function frame() {
+      if (width >= 75) {
+        clearInterval(id);
+        alert("Starting Game!!")
+        intro.style.display='none';
+  
+        first.style.display='block';
+      } else {
+        elem.style.display="block";
+        width++; 
+        elem.style.width = width + '%'; 
+      }
+    }
+  }
+
+function clearintro()
+{
+    first.style.display="none";
+    canvas.style.display="block";
+    loop();
+}
 //game stats
 function stats(){
     ctx.fillStyle="black";
@@ -52,6 +81,24 @@ function stats(){
 
 }
 
+
+
+// new game screen
+var play_mg=document.getElementById("play");
+var pause_mg=document.getElementById("pause");
+function play(){
+    play_mg.style.display="none";
+    pause_mg.style.display="block";
+    var s = document.getElementById('intro-sound');
+            s.play();
+}
+
+function pause(){
+    play_mg.style.display="block";
+    pause_mg.style.display="none";
+    var s = document.getElementById('intro-sound');
+    s.pause();
+}
 
 // CREATE THE PADDLE
 var paddle = {
@@ -339,7 +386,6 @@ if(! GAME_OVER)
 requestAnimationFrame(loop); //To request a new animation frame on every function call
  
 }
-loop();
 
 
 var LIFE=3;

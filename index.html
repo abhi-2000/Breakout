@@ -7,6 +7,29 @@
     <title>Breakout Game</title>
 </head>
 <body>
+
+    <section id="intro">
+        <h1>Breakout Game</h1>
+        <p id="intro-text">Have Fun And Play With Us.</p>
+        <progress id="progress-bar" max="100" value="0"></progress>
+        <button onclick="pointer()">Start Game</button>
+        </section>
+        
+         <!-- audio and intro new game screen -->
+         <audio id="intro-sound" loop autoplay>
+            <source src="/bensound-dreams.mp3">
+        </audio>
+        <section id="first-screen">
+            <img id="play" src="images/play.png" onclick="play()">
+        <img id="pause" src="images/pause.png" onclick="pause()">
+        <button id="new-game" onclick="clearintro()">New Game</button>
+        <button id="high-score">High Score</button>
+        <button id="how2play">How To Play?</button>
+        
+        </section>
+        <!-- ends here -->
+        
+
     <div id="gameover">
         <img src="gameover.png" id="youlose">
         <img id="won-img" src="won.svg">
