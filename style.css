@@ -88,7 +88,7 @@ img{
     width: 270px;
 }
 
-#new-game,#high-score,#how2play
+#new-game,#how2play
 {
     position: relative;
     right: 150px;
@@ -98,14 +98,14 @@ img{
    background-color: black;
    color: white;
     padding: 15px 60px;
-    bottom: 10px;
+    bottom: -50px;
     height: 100px;
     /* border-radius: 30%; */
     border: 2px solid white;
 }
 
-#high-score,#how2play{
-    margin-top: 30px;
+#how2play{
+    margin-top: 80px;
     display: flex;
     width: 275px;
     left: 350px;
@@ -159,11 +159,32 @@ body{
     background: rgba(0,0,0,0.5);
     display: none;
 }
+#list{
+    display: none;
+}
 
-
-
+#listplay{
+    position: absolute;
+    left: 40px;
+    color: black;
+    font-size: 50px;
+    margin: 30px;
+    /* display: none; */
+}
+#continue{
+    position: absolute;
+    top: -50%;
+}
 #won-img{
     position: absolute;
     left: 10%;
     bottom: 10%;
 }   
+#score{
+    color: white;
+    font-family: cursive;
+    padding-top: 20px;
+    padding-left: 280px;
+    font-size: 45px;
+   
+}

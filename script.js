@@ -1,6 +1,8 @@
 var canvas = document.getElementById("game-screen");
 var ctx = canvas.getContext("2d");
 var first = document.getElementById("first-screen");
+var list=document.getElementById("list");
+
 var intro=document.getElementById("intro");
 var GAME_OVER=false;
 var rad=25;
@@ -395,6 +397,10 @@ if(LIFE<0){
     GAME_OVER=true;
     end.style.display="block";
     won.style.display="none";
+    
+var final_score=SCORE;
+var print_score=document.getElementById("score");
+print_score.innerHTML="Your Score: "+final_score;
 }
 
 }
@@ -411,6 +417,10 @@ function levelUp()
      for(var r = 0; r < brick.row; r++){
         for(var c = 0; c < brick.col; c++){
             isLevelDone = isLevelDone &&  bricks[r][c].broken;
+            var final_score=SCORE;
+            var print_score=document.getElementById("score");
+            print_score.innerHTML="Your Score: "+final_score;
+            
         }
      }
     
@@ -437,4 +447,16 @@ function levelUp()
     }
   function restart(){
     location.reload();
+}
+
+//how to play
+function how2play(){
+list.style.display="block";
+first.style.display="none";
+}
+
+function back(){
+    list.style.display="none";
+    first.style.display="block";
+    
 }

@@ -23,14 +23,25 @@
             <img id="play" src="images/play.png" onclick="play()">
         <img id="pause" src="images/pause.png" onclick="pause()">
         <button id="new-game" onclick="clearintro()">New Game</button>
-        <button id="high-score">High Score</button>
-        <button id="how2play">How To Play?</button>
         
+        <button id="how2play" onclick="how2play()">How To Play?</button>
         </section>
         <!-- ends here -->
+       <section id="list">
+        <ul id="listplay">
+            <li>Hello</li>
+            <li>Use left and right arrow key to control paddle.</li>
+            <li>Prevent ball from falling down the paddle.</li>
+            <li>Break all bricks to reach to next level. </li>
+            <li>Collect falling elements that boosts your performance.</li>
+            <li>Play and enjoy with us.</li>
+           </ul>
+           <button id="Continue" onclick="back()">Back</button>
+        </section>
         
 
     <div id="gameover">
+        <h2 id="score">Total score:</h2>
         <img src="gameover.png" id="youlose">
         <img id="won-img" src="won.svg">
         <div id="restart" onclick="restart()">Play Again!</div>
