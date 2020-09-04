@@ -1,6 +1,8 @@
 var canvas = document.getElementById("game-screen");
 var ctx = canvas.getContext("2d");
 var first = document.getElementById("first-screen");
+var list=document.getElementById("list");
+
 var intro=document.getElementById("intro");
 var GAME_OVER=false;
 var rad=25;
@@ -444,4 +446,16 @@ function levelUp()
     }
   function restart(){
     location.reload();
+}
+
+//how to play
+function how2play(){
+list.style.display="block";
+first.style.display="none";
+}
+
+function back(){
+    list.style.display="none";
+    first.style.display="block";
+    
 }

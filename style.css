@@ -150,9 +150,22 @@ body{
     background: rgba(0,0,0,0.5);
     display: none;
 }
+#list{
+    display: none;
+}
 
-
-
+#listplay{
+    position: absolute;
+    left: 40px;
+    color: black;
+    font-size: 50px;
+    margin: 30px;
+    /* display: none; */
+}
+#continue{
+    position: absolute;
+    top: -50%;
+}
 #won-img{
     position: absolute;
     left: 10%;
