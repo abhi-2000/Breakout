@@ -14,6 +14,12 @@ var y=30,x=90,x1=200,y1=30,x2=250, y2=30;
 var bg= new Image();
 bg.src= "bgsi.png";
 
+var score=new Image();
+score.src="score.jpg";
+
+var level= new Image();
+level.src= "level.png";
+
 var size= new Image();
 size.src= "bomb.png";
 
@@ -23,21 +29,24 @@ life.src= "life.png";
 var speed = new Image();
 speed.src = "speed.png";
 
-
 //game stats
 function stats(){
     ctx.fillStyle="black";
     ctx.font= "30px Georgia";
-    ctx.fillText("Score: "+SCORE, 30,40);
-
+    ctx.fillText("Score: "+SCORE, 58,40);
+    ctx.drawImage(score,5, 5, width= 45, height= 48);
+     
     
     ctx.fillStyle="black";
     ctx.font= "30px Georgia";
     ctx.fillText("Level: "+LEVEL, 420,40);
+    ctx.drawImage(level,360, 2, width= 60, height= 60);
 
     ctx.fillStyle="black";
     ctx.font= "30px Georgia";
     ctx.fillText("Life: "+LIFE, 830,40);
+    ctx.drawImage(life,780, 2, width= 50, height= 55);
+
 }
 
 
@@ -129,14 +138,14 @@ function edges(){
     }
 }
 
-// function reset()
-// {
-//     ball.x = canvas.width/2;
-//          ball.y= paddle.y-rad;
-//          ball.dx= 5*(Math.random()*2 -1);
-//          ball.dy= -5;
+ function reset()
+ {
+     ball.x = canvas.width/2;
+     ball.y= paddle.y-rad;
+     ball.dx= 5*(Math.random()*2 -1);
+     ball.dy= -5;
          
-// }
+}
 //collision of ball and paddle
 function paddlecollision(){
     if(ball.x < paddle.x +paddle.width && ball.x >paddle.x && ball.y+ball.radius >paddle.y )
@@ -249,7 +258,7 @@ function boosters(){
         ctx.drawImage(life,x1, y1, width= 70, height= 60);
         y1+=2;
         if(y1+55==paddle.y&& x1+60>=paddle.x && x1<=paddle.x+paddle.width){
-            ctx.drawImage(size,x1, canvas.height, width= 70, height= 60);
+            ctx.drawImage(life,x1, canvas.height, width= 70, height= 60);
             LIFE++;
         }      
         }
@@ -257,9 +266,9 @@ function boosters(){
             ctx.drawImage(speed,x2, y2, width= 80, height= 80);
             y2+=2;
             if(y2+60==paddle.y&& x2+70>=paddle.x && x2<=paddle.x+paddle.width){
-                ctx.drawImage(size,x2, canvas.height, width= 70, height= 60);
-                ball.x =  ball.x+ball.dx+100;
-                ball.y =  ball.y+ball.dy+100;
+                ctx.drawImage(speed,x2, canvas.height, width= 70, height= 60);
+                ball.vel=  ball.vel*2;
+                
             }      
             }
 }
@@ -308,29 +317,31 @@ function life_loss()
 //level up function
 var LEVEL=1;
 var MAX_LEVEL=3;
-function levelUp(){
-    let isLevelDone = true;
+function levelUp()
+ {
+     let isLevelDone = true;
     
-    // check if all the bricks are broken
-    for(var r = 0; r < brick.row; r++){
+     // check if all the bricks are broken
+     for(var r = 0; r < brick.row; r++){
         for(var c = 0; c < brick.col; c++){
             isLevelDone = isLevelDone &&  bricks[r][c].broken;
         }
-    }
+     }
     
-    if(isLevelDone){
-        
+     if(isLevelDone)
+     {
         if(LEVEL >= MAX_LEVEL){
             GAME_OVER = true;
             return;
         }
-        alert("starting next level");
+        reset();    
+        alert("Next level on the way... Be Ready !!");
         brick.row++;
         configbricks();
         ball.vel += 1;
         LEVEL++;
+     }
     }
-}
-function restart(){
+  function restart(){
     location.reload();
 }
