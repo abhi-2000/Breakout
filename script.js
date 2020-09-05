@@ -19,46 +19,45 @@ ctx.lineWidth = 3;
 var booster=false,booster1=false,booster2=false;
 var y=30,x=90,x1=200,y1=30,x2=250, y2=30;
 
+//Image and Audio object declaration
 var bg= new Image();
-bg.src= "bgsi.png";
+bg.src= "images/bgsi.png";
 
 var score=new Image();
-score.src="score.jpg";
+score.src="images/score.jpg";
 
 var level= new Image();
-level.src= "level.png";
+level.src= "images/level.png";
 
 var size= new Image();
-size.src= "bomb.png";
+size.src= "images/bomb.png";
 
 var life= new Image();
-life.src= "life.png";
+life.src= "images/life.png";
 
 var speed = new Image();
-speed.src = "speed.png";
+speed.src = "images/speed.png";
 
 var sound = new Image();
-sound.src="soundon.png";
+sound.src="images/soundon.png";
 
 var gamewin = new Audio();
-gamewin.src="gamewin.mp3";
+gamewin.src="audio/gamewin.mp3";
 
 var gameover = new Audio();
-gameover.src="gameover.mp3";
+gameover.src="audio/gameover.mp3";
 
 var paddlehit=new Audio();
-paddlehit.src= "paddlehit.mp3";
+paddlehit.src= "audio/paddlehit.mp3";
 
 var boostertaken=new Audio();
-boostertaken.src= "booster.mp3";
+boostertaken.src= "audio/booster.mp3";
 
 var brickhit=new Audio();
-brickhit.src= "brick.mp3";
+brickhit.src= "audio/brick.mp3";
 
 var levup=new Audio();
-levup.src= "levup.mp3";
-
-
+levup.src= "audio/levup.mp3";
 
 
 //animation in progress bar
@@ -501,7 +500,7 @@ const soundmute= document.getElementById("sound");
 soundmute.addEventListener("click",mute);
 function mute(){
     let imgsrc=soundmute.getAttribute("src");
-  let sound= imgsrc=="soundon.png"?"soundoff.jpg": "soundon.png";
+  let sound= imgsrc=="images/soundon.png"?"images/soundoff.jpg": "images/soundon.png";
 
 soundmute.setAttribute("src",sound);
 gamewin.muted=gamewin.muted?false:true;
