@@ -37,6 +37,29 @@ life.src= "life.png";
 var speed = new Image();
 speed.src = "speed.png";
 
+var sound = new Image();
+sound.src="soundon.png";
+
+var gamewin = new Audio();
+gamewin.src="gamewin.mp3";
+
+var gameover = new Audio();
+gameover.src="gameover.mp3";
+
+var paddlehit=new Audio();
+paddlehit.src= "paddlehit.mp3";
+
+var boostertaken=new Audio();
+boostertaken.src= "booster.mp3";
+
+var brickhit=new Audio();
+brickhit.src= "brick.mp3";
+
+var levup=new Audio();
+levup.src= "levup.mp3";
+
+
+
 
 //animation in progress bar
 function pointer() {
@@ -81,6 +104,7 @@ function stats(){
     ctx.font= "30px Georgia";
     ctx.fillText("Life: "+LIFE, 830,40);
     ctx.drawImage(life,777, 2, width= 50, height= 55); //To display life icon
+
 
 }
 
@@ -201,6 +225,7 @@ function reset()
 function paddlecollision(){
     if(ball.x < paddle.x +paddle.width && ball.x >paddle.x && ball.y+ball.radius >paddle.y )
     {
+        paddlehit.play();
         //To find the colllision point
         var pt= ball.x-(paddle.x+ paddle.width/2);
 
@@ -286,6 +311,7 @@ function ballBrickCollision(){
             if(!(b.broken)){
                 if(ball.x + ball.radius > b.x && ball.x - ball.radius < b.x + brick.width && ball.y + ball.radius > b.y && ball.y - ball.radius < b.y + brick.height){
                     ball.dy = - ball.dy;
+                    brickhit.play();
                     SCORE+=10;
                     b.broken = true; // the brick is broken
                 }
@@ -301,6 +327,7 @@ function boosters(){
     if(y+55==paddle.y&& x+60>=paddle.x && x<=paddle.x+paddle.width){
         booster= true;
         ball.radius=32;
+        boostertaken.play();
     } }  
     if(SCORE>1000&&SCORE<1540&&booster==false){
         ctx.drawImage(size,x, y, width= 70, height= 60);
@@ -308,6 +335,7 @@ function boosters(){
         if(y+55==paddle.y&& x+60>=paddle.x && x<=paddle.x+paddle.width){
         booster= true;
             ball.radius=32;
+            boostertaken.play();
         } 
     }
     if(SCORE>1800&&booster==false){
@@ -316,6 +344,7 @@ function boosters(){
         if(y+55==paddle.y&& x+60>=paddle.x && x<=paddle.x+paddle.width){
             booster=true;
             ball.radius=32;
+            boostertaken.play();
         } 
     }
     if(SCORE>500&&SCORE<700&&booster1==false){
@@ -325,6 +354,7 @@ function boosters(){
         if(y1+55==paddle.y&& x1+60>=paddle.x && x1<=paddle.x+paddle.width){
             booster1=true;
             LIFE++;
+            boostertaken.play();
         }      
         }
         if(SCORE>1500 &&SCORE<1540 && booster1==false){
@@ -334,6 +364,7 @@ function boosters(){
             if(y1+60==paddle.y&& x1+70>=paddle.x && x1<=paddle.x+paddle.width){
                 booster1=true;
                 LIFE++;
+                boostertaken.play();
             }      
             }
             if(SCORE>2000 && booster1==false){
@@ -343,15 +374,17 @@ function boosters(){
                 if(y1+55==paddle.y&& x1+60>=paddle.x && x1<=paddle.x+paddle.width){
                     booster1=true;
                     LIFE++;
+                    boostertaken.play();
                 }      
                 }
 
-        if(SCORE>350&&SCORE<700 && booster2==false){
+        if(SCORE>400&&SCORE<700 && booster2==false){
             ctx.drawImage(speed,x2, y2, width= 80, height= 80);
             y2+=2;
             if(y2+80==paddle.y&& x2+80>=paddle.x && x2<=paddle.x+paddle.width){
                 booster2=true;
                 ball.vel=  ball.vel*2;
+                boostertaken.play();
                 
             }      
             }
@@ -361,7 +394,7 @@ function boosters(){
                 if(y2+80==paddle.y&& x2+80>=paddle.x && x2<=paddle.x+paddle.width){
                     booster2=true;
                     ball.vel=  ball.vel*2;
-                    
+                    boostertaken.play(); 
                 }      
                 }
 }
@@ -397,6 +430,7 @@ if(LIFE<0){
     GAME_OVER=true;
     end.style.display="block";
     won.style.display="none";
+    gameover.play();
     
 var final_score=SCORE;
 var print_score=document.getElementById("score");
@@ -430,10 +464,13 @@ function levelUp()
         y=30,x=90;
         x1=200,y1=30;
         x2=250, y2=30;
+        levup.play();
         if(LEVEL >= MAX_LEVEL){
             GAME_OVER = true;
             end.style.display="block";
             lose.style.display="none";
+            gamewin.play();
+    
             return;
         }
         reset();    
@@ -459,4 +496,21 @@ function back(){
     list.style.display="none";
     first.style.display="block";
     
+}
+const soundmute= document.getElementById("sound");
+soundmute.addEventListener("click",mute);
+function mute(){
+    let imgsrc=soundmute.getAttribute("src");
+  let sound= imgsrc=="soundon.png"?"soundoff.jpg": "soundon.png";
+
+soundmute.setAttribute("src",sound);
+gamewin.muted=gamewin.muted?false:true;
+gameover.muted=gameover.muted?false:true;
+paddlehit.muted=paddlehit.muted?false:true;
+boostertaken.muted=boostertaken.muted?false:true;
+brickhit.muted=brickhit.muted?false:true;
+levup.muted=levup.muted?false:true;
+
+
+
 }

@@ -188,3 +188,11 @@ body{
     font-size: 45px;
    
 }
+#sound{
+    width:50px;
+    height: 50px;
+    cursor:pointer;
+    position:absolute;
+    top: 615px;
+    left:28px;
+}
